@@ -1,0 +1,3 @@
+moduleName=rxgroovy-ext
+moduleVersion=
+extensionClasses=com.naleid.rx.RxExtensions
