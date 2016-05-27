@@ -1,0 +1,63 @@
+buildscript { repositories { jcenter() } }
+plugins {
+//  id 'nebula.nebula-bintray' version '3.3.4'
+  id 'nebula.nebula-release' version '4.0.1'
+
+//  id 'nebula.dependency-lock' version '4.3.0'
+  id "com.jfrog.bintray" version "1.6"
+}
+
+//apply plugin: 'nebula.project-plugin'
+//apply plugin: 'nebula.dependency-lock'
+//apply plugin: 'nebula.maven-publish'
+//apply plugin: 'nebula.javadoc-jar'
+//apply plugin: 'nebula.sources-jar'
+//apply plugin: 'nebula.release'
+//apply plugin: 'nebula.bintray'
+
+apply plugin: 'maven-publish'
+apply plugin: 'groovy'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+  jcenter()
+}
+
+configurations {
+  ivy
+}
+
+dependencies {
+  compile 'io.reactivex:rxjava:1.1.2'
+
+  testCompile(
+          'junit:junit:4.12',
+          'org.codehaus.groovy:groovy-all:2.4.4',
+          'org.spockframework:spock-core:1.0-groovy-2.4'
+  )
+}
+
+bintray {
+  user = System.getenv('BINTRAY_USER')
+  key = System.getenv('BINTRAY_KEY')
+  pkg {
+    repo = 'rxgroovy'
+    userOrg = 'tednaleid'
+    name = "${project.name}"
+    desc = "${project.description}"
+    websiteUrl = 'https://github.com/tednaleid/rxgroovy-ext'
+    issueTrackerUrl = 'https://github.com/tednaleid/rxgroovy-ext/issues'
+    vcsUrl = 'https://github.com/tednaleid/rxgroovy-ext.git'
+    licenses = ['Apache-2.0']
+    publications = ['maven']
+    version {
+      name = "${project.version}"
+      desc = "${project.description}"
+      released = new Date()
+    }
+  }
+}
+
