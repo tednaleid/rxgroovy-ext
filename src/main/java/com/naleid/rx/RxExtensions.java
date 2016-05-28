@@ -27,10 +27,6 @@ public abstract class RxExtensions {
      *
      */
     public static <T, R> Observable<T> flatTap(Observable<T> observable, Func1<? super T, ? extends Observable<R>> func) {
-        return observable.flatMap((T t) -> {
-            Observable<R> asyncObservable = func.call(t);
-            Observable<T> originalResultObservable = asyncObservable.map( (R ignore) -> t );
-            return originalResultObservable;
-        });
+        return observable.flatMap((T t) -> func.call(t).map( (R ignore) -> t ));
     }
 }
