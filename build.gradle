@@ -59,3 +59,5 @@ publishing {
     }
   }
 }
+
+// to release a new version: `./gradlew final` then go to bintray and click the "publish" button
