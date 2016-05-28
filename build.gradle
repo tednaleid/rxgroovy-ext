@@ -52,7 +52,6 @@ bintray {
     issueTrackerUrl = 'https://github.com/tednaleid/rxgroovy-ext/issues'
     vcsUrl = 'https://github.com/tednaleid/rxgroovy-ext.git'
     licenses = ['Apache-2.0']
-    publications = ['maven']
     version {
       name = "${project.version}"
       desc = "${project.description}"
