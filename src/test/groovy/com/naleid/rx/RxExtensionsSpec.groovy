@@ -64,4 +64,45 @@ class RxExtensionsSpec extends Specification {
         then:
         errorThrownAndCaught && subscribeCalled
     }
+
+    def "flatTap will return original value if an empty observable is subscribed to"() {
+        given:
+        Boolean flatTapCalled = false
+        Boolean subscribeCalled = false
+
+        when:
+        Observable.just(1)
+                .flatTap({ Integer val ->
+                    flatTapCalled = true
+                    return Observable.empty()
+                } as Func1)
+                .subscribe { Integer val ->
+                    assert 1 == val
+                    subscribeCalled = true
+                }
+
+        then:
+        flatTapCalled && subscribeCalled
+    }
+
+    def "flatMap will return original value if null observable is returned from closure"() {
+        given:
+        Boolean flatTapCalled = false
+        Boolean subscribeCalled = false
+
+        when:
+        Observable.just(1)
+                .flatTap({ Integer val ->
+                    flatTapCalled = true
+                    return null
+                } as Func1)
+                .subscribe { Integer val ->
+                    assert 1 == val
+                    subscribeCalled = true
+                }
+
+        then:
+        flatTapCalled && subscribeCalled
+
+    }
 }
