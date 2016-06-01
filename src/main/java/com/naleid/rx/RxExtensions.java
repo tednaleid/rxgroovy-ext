@@ -49,8 +49,11 @@ public abstract class RxExtensions {
             }
 
             return flatObservable
+                    .ignoreElements()
                     .defaultIfEmpty(null)
-                    .map( (R ignore) -> t );
+                    .map( (R ignore) -> t);
         });
     }
 }
+
+
